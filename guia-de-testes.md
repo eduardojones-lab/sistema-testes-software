@@ -647,27 +647,3 @@ Em qualquer resposta bem-sucedida, vá em Headers e verifique:
 
 
 
-
-📊 TABELA DE RESUMO DOS TESTES
-
-|ID|Tipo|Endpoint|Esperado|
-|-|-|-|-|-|
-|F-01|Funcional|POST /api/usuarios|201|
-|F-05|Funcional|POST /api/usuarios/login|200|
-|F-06|Funcional|POST /api/produtos|201|
-|F-08|Funcional|GET  /api/produtos|200|
-|F-10|Funcional|PUT  /api/produtos/{id}|200|
-|F-14|Funcional|DELETE /api/produtos/{id}|204|
-|S-01|Segurança|POST /api/usuarios (duplicado)|409|
-|S-02|Segurança|POST /login (senha errada)|409|
-|S-04|Segurança|POST produto preço negativo|400|
-|S-06|Segurança|POST email inválido|400|
-|D-01|Desempenho|GET /api/produtos|<500ms|
-|D-05|Desempenho|Runner 50x|sem falha|
-|U-01|Usabilidade|GET /api/produtos/{id}|JSON ok|
-|U-04|Usabilidade|POST múltiplos erros de uma vez|todos|
-
-
-
-
-
