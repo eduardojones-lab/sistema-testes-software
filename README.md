@@ -81,7 +81,7 @@ Postman ← Controller ← Service ← Repository ←
 ### 1. Clone o repositório
 
 ```bash
-git clone https://github.com/SEU_USUARIO/sistema-testes-software.git
+git clone https://github.com/eduardojones-lab/sistema-testes-software.git
 cd sistema-testes-software
 ```
 
@@ -243,7 +243,7 @@ Content-Type: application/json
 
 ## Desenvolvimento
 
-Este projeto foi desenvolvido como **Aula Invertida** para a disciplina de Engenharia de Software:
+Este projeto foi desenvolvido como **Aula Invertida** para a disciplina de Testes de Software:
 
 - **Instituição:** UDESC — (CEAVI)
 - **Curso:** Engenharia de Software
@@ -257,7 +257,7 @@ Este projeto foi desenvolvido como **Aula Invertida** para a disciplina de Engen
 
 ---
 
-## Conceitos de Orientação a Obejtos Aplicados
+## Conceitos de Orientação a Objetos Aplicados
 
 O projeto demonstra na prática os quatro pilares da Orientação a Objetos:
 
