@@ -1,10 +1,10 @@
-GUIA DE TESTES - POSTMAN
+## GUIA DE TESTES - POSTMAN
 Sistema de Gerenciamento de Produtos | UDESC CEAVI - Aula Invertida
 
 
 
-CONFIGURAÇÃO INICIAL
-
+### CONFIGURAÇÃO INICIAL
+````
 1. Crie uma Collection no Postman
 * Abra o Postman → clique em Collections → + (New Collection)
 * Nomeie: Sistema de Testes - UDESC CEAVI
@@ -17,23 +17,23 @@ CONFIGURAÇÃO INICIAL
   * Initial value: http://localhost:8080
 * Selecione este environment antes de testar
 
-\#3. URL base de todos os testes
+3. URL base de todos os testes
 
 {{base\_url}}
+````
 
 
 
 
 
 
-
-PARTE 1: TESTES FUNCIONAIS
+### PARTE 1: TESTES FUNCIONAIS
 Verificam se as funcionalidades do sistema funcionam corretamente
 
 
 
-CADASTRO DE USUÁRIOS
-
+#### CADASTRO DE USUÁRIOS
+````
 F-01 | Cadastrar usuário com sucesso
 
 Método:  POST
@@ -118,7 +118,7 @@ Body: token + dados do usuário
 
 
 
-CADASTRO DE PRODUTOS
+#### CADASTRO DE PRODUTOS
 
 F-06 | Criar produto com sucesso
 
@@ -256,18 +256,18 @@ Método:  DELETE
 URL:     {{base\_url}}/api/produtos/4
 
 Resultado esperado: Status 204 No Content (sem corpo)
+````
 
 
 
 
 
 
-
-PARTE 2: TESTES DE SEGURANÇA
+### PARTE 2: TESTES DE SEGURANÇA
 Verificam se o sistema protege contra dados inválidos e acesso indevido
 
 
-
+````
 S-01 | Tentar cadastrar usuário com email duplicado
 
 Método:  POST
@@ -422,18 +422,18 @@ URL:     {{base\_url}}/api/produtos/1/estoque?quantidade=-5
 Resultado esperado:
 Status: 409 Conflict
 Body: { "mensagem": "A quantidade deve ser maior que zero" }
+````
 
 
 
 
 
 
-
-PARTE 3: TESTES DE DESEMPENHO
+### PARTE 3: TESTES DE DESEMPENHO
 Verificam o tempo de resposta e comportamento sob carga
 
 
-
+````
 D-01 | Medir tempo de resposta - GET simples
 
 Método:  GET
@@ -532,17 +532,17 @@ Execute em sequência e anote os tempos:
 Conclusão esperada:
 Leitura (GET) geralmente é mais rápida que escrita (POST/PUT/DELETE)
 
+````
 
 
 
 
 
-
-PARTE 4: TESTES DE USABILIDADE DA API
+### PARTE 4: TESTES DE USABILIDADE DA API
 Verificam se a API comunica erros de forma clara e retorna dados bem estruturados\*=
 
 
-
+````
 U-01 | Verificar estrutura da resposta de sucesso
 
 Método:  GET
@@ -554,10 +554,6 @@ Checklist de usabilidade:
 □ Todos os campos esperados presentes? (id, nome, preco, etc.)
 □ Datas em formato legível (ISO 8601)?
 □ Campos numéricos com tipo correto (número, não string)?
-
-
-
-
 
 U-02 | Verificar estrutura da resposta de erro
 
@@ -641,7 +637,7 @@ Em qualquer resposta bem-sucedida, vá em Headers e verifique:
 Checklist:
 □ Content-Type: application/json;charset=UTF-8
 □ Headers não expõem informações sensíveis do servidor?
-
+````
 
 
 
