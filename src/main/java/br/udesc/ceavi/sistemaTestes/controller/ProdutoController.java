@@ -63,6 +63,7 @@ public class ProdutoController {
     // Busca um produto pelo ID
     // @PathVariable extrai o {id} da URL
     // ================================================
+
     @GetMapping("/{id}")
     public ResponseEntity<Produto> buscarPorId(@PathVariable Long id) {
         Produto produto = produtoService.buscarPorId(id);
@@ -75,6 +76,7 @@ public class ProdutoController {
     // @RequestBody converte o JSON enviado para objeto Java
     // @Valid ativa as validações definidas no model (@NotBlank, etc.)
     // ================================================
+
     @PostMapping
     public ResponseEntity<Produto> criar(@Valid @RequestBody Produto produto) {
         Produto novoProduto = produtoService.criar(produto);
@@ -85,6 +87,7 @@ public class ProdutoController {
     // PUT /api/produtos/{id}
     // Atualiza um produto existente
     // ================================================
+
     @PutMapping("/{id}")
     public ResponseEntity<Produto> atualizar(
             @PathVariable Long id,
@@ -97,6 +100,7 @@ public class ProdutoController {
     // DELETE /api/produtos/{id}
     // Remove um produto
     // ================================================
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
         produtoService.deletar(id);
@@ -107,6 +111,7 @@ public class ProdutoController {
     // GET /api/produtos/categoria/{categoria}
     // Filtra produtos por categoria
     // ================================================
+
     @GetMapping("/categoria/{categoria}")
     public ResponseEntity<List<Produto>> buscarPorCategoria(@PathVariable String categoria) {
         List<Produto> produtos = produtoService.buscarPorCategoria(categoria);
@@ -118,6 +123,7 @@ public class ProdutoController {
     // Busca produtos pelo nome (query parameter)
     // @RequestParam extrai parâmetros da URL (?nome=valor)
     // ================================================
+
     @GetMapping("/buscar")
     public ResponseEntity<List<Produto>> buscarPorNome(@RequestParam String nome) {
         List<Produto> produtos = produtoService.buscarPorNome(nome);
@@ -128,6 +134,7 @@ public class ProdutoController {
     // GET /api/produtos/estoque-baixo?limite=10
     // Busca produtos com estoque abaixo do limite informado
     // ================================================
+
     @GetMapping("/estoque-baixo")
     public ResponseEntity<List<Produto>> buscarEstoqueBaixo(
             @RequestParam(defaultValue = "10") Integer limite) {
@@ -139,6 +146,7 @@ public class ProdutoController {
     // GET /api/produtos/faixa-preco?min=10.00&max=100.00
     // Busca produtos dentro de uma faixa de preço
     // ================================================
+
     @GetMapping("/faixa-preco")
     public ResponseEntity<List<Produto>> buscarPorFaixaPreco(
             @RequestParam BigDecimal min,
@@ -152,6 +160,7 @@ public class ProdutoController {
     // Adiciona unidades ao estoque (atualização parcial)
     // @PatchMapping = atualização parcial de um recurso
     // ================================================
+
     @PatchMapping("/{id}/estoque")
     public ResponseEntity<Produto> adicionarEstoque(
             @PathVariable Long id,
@@ -164,6 +173,7 @@ public class ProdutoController {
     // GET /api/produtos/estatisticas
     // Retorna estatísticas do sistema (para testes de desempenho)
     // ================================================
+
     @GetMapping("/estatisticas")
     public ResponseEntity<Map<String, Object>> obterEstatisticas() {
         Map<String, Object> stats = new HashMap<>();
