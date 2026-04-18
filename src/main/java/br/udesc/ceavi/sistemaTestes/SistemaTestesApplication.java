@@ -19,9 +19,9 @@ public class SistemaTestesApplication {
     public static void main(String[] args) {
         SpringApplication.run(SistemaTestesApplication.class, args);
         System.out.println("==============================================");
-        System.out.println("  Sistema de Testes - UDESC CEAVI/ Aula 11/06");
+        System.out.println("  Sistema de Testes - Plano de testes/ Aula 11/06");
         System.out.println("  Servidor rodando em: http://localhost:8080");
-        System.out.println("  Produzido pelo aluno: Eduardo Jones");
+        System.out.println("  Produzido pelos alunos: Cauê, Eduardo, Henrique e Thiago");
         System.out.println("==============================================");
     }
 }
