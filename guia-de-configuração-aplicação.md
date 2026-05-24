@@ -5,12 +5,12 @@ PASSO 1: Instalar as Ferramentas
 
 1.1 Java JDK 17
 Acesse: https://adoptium.net/
-Baixe: Eclipse Temurin 17 (LTS)
+Baixe: Eclipse Temurin 25 (LTS)
 Instale normalmente
 Verifique: abra o terminal (CMD) e digite:
   java -version
 
-  Deve aparecer: openjdk version "17..."
+  Deve aparecer: openjdk version "25..."
 
 
   1.2 IntelliJ IDEA
@@ -25,6 +25,7 @@ Baixe e instale o PostgreSQL (inclui o pgAdmin)
 Durante a instalação:
 
   Porta: 5432 (padrão)
+  Usuário: postgres
   Senha do superusuário (postgres): postgres!
 pgAdmin é instalado junto automaticamente
 
@@ -41,18 +42,18 @@ PASSO 2: Criar o Banco de Dados no pgAdmin
 3. Digite a senha configurada na instalação
 4. Clique com o botão direito em Databases → Create → Database...
 5. Na janela que abrir:
-  Database: sistema\_testes
+  Database: sistemaTestes
   Owner: postgres
 6. Clique em Save
-O banco sistema\_testes foi criado.
+O banco sistemaTestes foi criado.
 ````
 
 
 ````
 PASSO 3: Abrir o Projeto no IntelliJ
 1. Abra o IntelliJ IDEA
-2. Clique em Open
-3. Navegue até a pasta sistema-testes e clique OK
+2. Clique em Clone Repository
+3. Adicione o link: https://github.com/eduardojones-lab/sistema-testes-software  
 4. O IntelliJ vai detectar o pom.xml e perguntar se é um projeto Maven
 5. Clique Trust Project (Confiar no Projeto)
 6. Aguarde o IntelliJ baixar as dependências (barra de progresso no canto inferior)
@@ -61,7 +62,7 @@ PASSO 3: Abrir o Projeto no IntelliJ
 ````
 
 ````
-PASSO 4: Verificar a Configuração do Banco
+PASSO 4: Verificar a Configuração do Banco no Intelij
 Abra o arquivo:
 src/main/resources/application.properties
 
@@ -102,11 +103,11 @@ Produzido pelos alunos: Cauê, Eduardo, Henrique e Thiago.
 PASSO 6: Verificar as Tabelas no pgAdmin
 
 1. No pgAdmin, expanda:
-sistema\_testes → Schemas → public → Tables
+sistemaTestes → Schemas → public → Tables
 2. Você deverá ver as tabelas:
     produtos
     usuarios
-3. Clique com o botão direito em "produtos" → View/Edit Data → All Rows
+3. Clique com o botão direito em "produtos" → Query Tool
 
 A tabela estará vazia por enquanto (vamos adicionar dados com o Postman)
 ````
@@ -123,7 +124,7 @@ URL: http://localhost:8080/api/produtos
 3. Clique em Send
 4. Você deve ver:
 json
-\[]
+[]
 
 (lista vazia, ainda não cadastramos nada)
 
@@ -137,14 +138,12 @@ PROBLEMAS COMUNS E SOLUÇÕES ⚠️
 
 Verifique se o PostgreSQL está rodando
 Windows: Painel de Controle → Serviços → procure "postgresql" → Iniciar
-Verifique a senha em `application.properties`
+Verifique a senha em `application.properties` (Intelij)
 
  "Port 8080 already in use"
 
 Outra aplicação está usando a porta 8080
-Solução: mude para 8081 em `application.properties`:
-properties
-server.port=8081
+Solução: mude para 8081 em `application.properties`(Intelij): server.port=8081
 
 
 "Cannot resolve symbol" no IntelliJ
