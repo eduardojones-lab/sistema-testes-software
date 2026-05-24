@@ -210,8 +210,9 @@ Selecione a request "F-03 Listar todos os produtos"
 Na lateral esquerda, clique com o botão direito sobre My Collection.
 2.1. Clique em "Run", após em "Performance".
 Configure:
-1. Load profile: Fixed (20 usuários virtuais são executados por 2 minutos, cada um executando todas as solicitações sequencialmente.)
-2. Load profile: Spike (4 usuários virtuais são executados por 40 segundos, aumentam para 20 em 20 segundos, caem para 4 em 30 segundos, mantêm 4 por 30 segundos, cada um executando todas as solicitações sequencialmente.)
+- Utilize somente o método GET.
+1. Load profile: Fixed, Virtual Users: 20 e Test Duration 2 mins (20 usuários virtuais são executados por 2 minutos, cada um executando todas as solicitações sequencialmente.)
+2. Load profile: Spike, Base Load: 4, Altere os pontos em azul para descrição abaixo apresentar-se da seguinte forma: 4 usuários virtuais são executados por 40 segundos, aumentam para 20 em 20 segundos, caem para 4 em 30 segundos, mantêm 4 por 30 segundos, cada um executando todas as solicitações sequencialmente.
 Delay: 0ms
 Métricas a analisar 📊:
 - Total requests sent: Número total de solicitações enviadas aos endpoints.
@@ -237,22 +238,22 @@ U-01 | Verificar estrutura da resposta de sucesso
 Método:  GET
 URL:     http://localhost:8080/api/produtos/1
 Checklist de usabilidade ✅:
-□ Status code correto? (200)
-□ Content-Type: application/json no header?
-□ Todos os campos esperados presentes? (id, nome, preço, descrição, preço, quantidade estoque, categoria, data criação e data atualização)
-□ Datas em formato legível (ISO 8601)?
-□ Campos numéricos com tipo correto (números)?
+- Status code correto? (200)
+- Content-Type: application/json no header?
+- Todos os campos esperados presentes? (id, nome, preço, descrição, preço, quantidade estoque, categoria, data criação e data atualização)
+- Datas em formato legível (ISO 8601)?
+- Campos numéricos com tipo correto (números)?
 
 
 U-02 | Verificar estrutura da resposta de erro
 Método:  GET
 URL:     http://localhost:8080/api/produtos/99999 (ID inexistente)
 Checklist de usabilidade  ✅:
-□ Status code correto? (404)
-□ Mensagem de erro em português?
-□ Campo "timestamp" presente?
-□ Mensagem é clara o suficiente para o usuário entender?
-□ Não expõe detalhes internos do servidor (stack trace)?
+- Status code correto? (404)
+- Mensagem de erro em português?
+- Campo "timestamp" presente?
+- Mensagem é clara o suficiente para o usuário entender?
+- Não expõe detalhes internos do servidor (stack trace)?
 
 
 U-03 | Verificar resposta de criação
@@ -266,10 +267,10 @@ Body:
 "categoria": "Teste"
 }
 Checklist ✅:
-□ Status 201 (não apenas 200)?
-□ Retorna o objeto criado com ID?
-□ dataCriacao foi preenchida automaticamente?
-□ dataAtualizacao igual à dataCriacao na criação?
+- Status 201 (não apenas 200)?
+- Retorna o objeto criado com ID?
+- dataCriacao foi preenchida automaticamente?
+- dataAtualizacao igual à dataCriacao na criação?
 
 
 U-04 | Verificar consistência dos erros de validação
@@ -282,19 +283,19 @@ Body:
 "senha": "123"
 }
 Checklist ✅:
-□ Retorna todos os erros de uma vez (não só o primeiro)?
-□ Mensagens são específicas por campo?
-□ Body tem estrutura: { "campos": { "nomeCampo": "mensagem" } }?
-□ Usuário sabe o que corrigir sem fazer nova tentativa?
+- Retorna todos os erros de uma vez (não só o primeiro)?
+- Mensagens são específicas por campo?
+- Body tem estrutura: { "campos": { "nomeCampo": "mensagem" } }?
+- Usuário sabe o que corrigir sem fazer nova tentativa?
 
 
 U-05 | Verificar resposta do DELETE
 Método:  DELETE
 URL:     http://localhost:8080/api/produtos/3
 Checklist ✅:
-□ Status 204 (não 200)?
-□ Body vazio (não retorna nada)?
-□ Tentando deletar o mesmo ID novamente → retorna 404?
+- Status 204 (não 200)?
+- Body vazio (não retorna nada)?
+- Tentando deletar o mesmo ID novamente → retorna 404?
 
 ````
 
