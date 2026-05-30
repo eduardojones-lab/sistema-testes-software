@@ -21,7 +21,6 @@ public class SistemaTestesApplication {
         System.out.println("==============================================");
         System.out.println("  Sistema de Testes - Plano de testes/ Aula 11/06");
         System.out.println("  Servidor rodando em: http://localhost:8080");
-        System.out.println("  Produzido pelos alunos: Cauê, Eduardo, Henrique e Thiago");
         System.out.println("==============================================");
     }
 }
