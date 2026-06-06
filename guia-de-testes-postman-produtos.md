@@ -32,10 +32,64 @@ Verificam se as funcionalidades do sistema funcionam corretamente
 
 #### CADASTRO DE USUÁRIOS
 ````
-CADASTRO DE PRODUTOS📦 
-F-01 | Criar produto com sucesso
+CADASTRO DE USUÁRIOS 👤 
+F-01 | Cadastrar usuário com sucesso
 Método:  POST
-URL:     http://localhost:8080/api/produtos
+URL: http://localhost:8080/api/usuarios
+Headers: Content-Type: application/json
+Body (raw → JSON):
+{
+"nome": "João Silva",
+"email": "joao.silva@udesc.br",
+"senha": "senha123",
+"perfil": "USER"
+}
+Resultado esperado:Status: 201 Created ✅ 
+Body: objeto do usuário criado com ID gerado
+
+
+F-02 | Cadastrar usuário ADMIN
+Método:  POST
+URL: http://localhost:8080/api/usuarios
+Body:
+{
+"nome": "Maria Admin",
+"email": "maria.admin@udesc.br",
+"senha": "admin@123",
+"perfil": "ADMIN"
+}
+Resultado esperado: Status 201 Created ✅ 
+
+
+F-03 | Listar todos os usuários
+Método:  GET
+URL: http://localhost:8080/api/usuarios
+Resultado esperado:Status: 200 OK ✅ 
+Body: array com todos os usuários
+
+
+F-04 | Buscar usuário por ID
+Método:  GET
+URL: http://localhost:8080/api/usuarios/1
+Resultado esperado: Status 200 OK com dados do usuário ✅ 
+
+
+F-05 | Realizar login com sucesso
+Método:  POST
+URL: http://localhost:8080/api/usuarios/login
+Body:
+{
+"email": "joao.silva@udesc.br",
+"senha": "senha123"
+}
+Resultado esperado:Status: 200 OK  ✅
+Body: token + dados do usuário
+
+
+CADASTRO DE PRODUTOS 📦 
+F-06 | Criar produto com sucesso
+Método:  POST
+URL: http://localhost:8080/api/produtos
 Body:
 {
 "nome": "Notebook Dell Inspiron",
@@ -47,7 +101,7 @@ Body:
 Resultado esperado: Status 201 Created ✅ 
 
 
-F-02 | Criar mais produtos (para ter dados nos testes)
+F-07 | Criar mais produtos (para ter dados nos testes)
 Produto 2:
 {
 "nome": "Mouse Logitech MX Master",
@@ -74,53 +128,70 @@ Produto 4:
 }
 
 
-F-03 | Listar todos os produtos
+F-08 | Listar todos os produtos
 Método:  GET
-URL:     http://localhost:8080/api/produtos
+URL: http://localhost:8080/api/produtos
 Resultado esperado: Status 200 + lista de produtos ✅ 
 
 
-F-04 | Buscar produto por ID
+F-09 | Buscar produto por ID
 Método:  GET
-URL:     http://localhost:8080/api/produtos/1
+URL: http://localhost:8080/api/produtos/1
 Resultado esperado: Status 200 + dados do produto ✅ 
 
-
-F-05 | Atualizar produto
-Método:  PUT
-URL:     http://localhost:8080/api/produtos/1
-Body:
-{
-"nome": "Notebook Dell Inspiron ATUALIZADO",
-"descricao": "Notebook 15 polegadas, i7, 16GB RAM, 512GB SSD",
-"preco": 3299.90,
-"quantidadeEstoque": 12,
-"categoria": "Informatica"
-}
-Resultado esperado ✅:
-Status: 200 OK
-Body: produto com dados atualizados
-
-
-F-06 | Deletar produto
+F-10 | Deletar produto
 Método:  DELETE
-URL:     http://localhost:8080/api/produtos/4
-Resultado esperado: Status 204 No Content (sem corpo)  ✅
+URL: http://localhost:8080/api/produtos/4
+Resultado esperado: Status 204 No Content (sem corpo) ✅ 
+
+
 ````
-
-
-
-
-
 
 ### PARTE 2: TESTES DE SEGURANÇA 🔴
 Verificam se o sistema protege contra dados inválidos e acesso indevido
 
 
 ````
-S-01 | Criar produto com preço negativo (validação de campo)
+S-01 | Tentar cadastrar usuário com email duplicado
 Método:  POST
-URL:     http://localhost:8080/api/produtos
+URL: http://localhost:8080/api/usuarios
+Body (mesmo email do F-01):
+{
+"nome": "Outro João",
+"email": "joao.silva@udesc.br",
+"senha": "outrasenha123",
+"perfil": "USER"
+}
+Resultado esperado: Status: 409 Conflict ❌
+Body: { "erro": "Conflito de dados", "mensagem": "Já existe um usuário..." }
+
+
+S-02 | Tentar login com senha errada
+Método:  POST
+URL: http://localhost:8080/api/usuarios/login
+Body:
+{
+"email": "joao.silva@udesc.br",
+"senha": "senhaerrada999"
+}
+Resultado esperado: Status: 409 Conflict ❌
+Body: { "mensagem": "Senha incorreta" }
+
+
+S-03 | Tentar login com email inexistente
+Método:  POST
+URL: http://localhost:8080/api/usuarios/login
+Body:
+{
+"email": "hacker@malicioso.com",
+"senha": "tentativa123"
+}
+Resultado esperado: Status: 404 Not Found ❌
+
+
+S-04 | Criar produto com preço negativo (validação de campo)
+Método:  POST
+URL: http://localhost:8080/api/produtos
 Body:
 {
 "nome": "Produto Teste",
@@ -129,25 +200,44 @@ Body:
 "quantidadeEstoque": 10,
 "categoria": "Teste"
 }
-Resultado esperado ❌:
-Status: 400 Bad Request
+Resultado esperado: Status: 400 Bad Request ❌
 Body: { "campos": { "preco": "O preço deve ser maior que zero" } }
 
 
-S-02 | Buscar ID inexistente
-Método:  GET
-URL:     http://localhost:8080/api/produtos/99999
-Resultado esperado ❌:
-Status: 404 Not Found
-Body: { "erro": "Recurso não encontrado" }
+S-05 | Criar usuário sem email (campo obrigatório)
+Método:  POST
+URL: http://localhost:8080/api/usuarios
+Body:
+{
+"nome": "Sem Email",
+"senha": "senha123"
+}
+Resultado esperado: Status: 400 Bad Request ❌
+Body: { "campos": { "email": "O email é obrigatório" } }
 
 
-S-03 | Adicionar quantidade negativa ao estoque
-Método:  PATCH
-URL:     http://localhost:8080/api/produtos/1/estoque?quantidade=-5
-Resultado esperado ❌:
-Status: 409 Conflict
-Body: { "mensagem": "A quantidade deve ser maior que zero" }
+S-06 | Email com formato inválido
+URL: http://localhost:8080/api/usuarios
+Body:
+{
+"nome": "Teste",
+"email": "isso-nao-e-um-email",
+"senha": "senha123"
+}
+Resultado esperado: Status: 400 Bad Request ❌
+Body: { "campos": { "email": "Formato de email inválido" } }
+
+
+S-07 | Senha com menos de 8 caracteres
+URL: http://localhost:8080/api/usuarios
+Body:
+{
+"nome": "Teste",
+"email": "teste@test.com",
+"senha": "123"
+}
+Resultado esperado: Status: 400 Bad Request ❌
+Body: { "campos": { "senha": "A senha deve ter no mínimo 8 caracteres" } }
 
 ````
 
@@ -161,24 +251,24 @@ Verificam o tempo de resposta e comportamento sob carga
 
 
 ````
-D-01 | Medir tempo de resposta - GET (pesquisa no banco)
+D-01 | Medir tempo de resposta 
 Método:  GET
-URL:     http://localhost:8080/api/produtos
+URL: http://localhost:8080/api/produtos
 Observar no Postman 📊:
 → No canto inferior direito: "200 OK  XX ms"
 Meta: resposta em menos de 500ms ✅ 
 
 
-D-02 | Medir tempo de resposta - GET com filtro
+D-02 | Medir tempo de resposta 
 Método:  GET
-URL:     http://localhost:8080/api/produtos/categoria/Informatica
+URL: http://localhost:8080/api/produtos/categoria/Informatica
 Comparar com D-01 📊:
 Meta: resposta em menos de 500ms  ✅
 
 
-D-03 | Medir tempo de resposta - POST (escrita no banco)
+D-03 | Medir tempo de resposta 
 Método:  POST
-URL:     http://localhost:8080/api/produtos
+URL: http://localhost:8080/api/produtos
 Body:
 {
 "nome": "Produto Performance Test",
@@ -188,7 +278,6 @@ Body:
 }
 Comparar com D-01 📊:
 Observar: Operações de escrita são mais lentas que as de leitura?
-
 
 
 D-04 | Teste de Carga com Runner do Postman
@@ -312,14 +401,13 @@ TABELA DE RESUMO DOS TESTES
 |F-05|Funcional|POST /api/usuarios/login|200|✅|
 |F-06|Funcional|POST /api/produtos|201|✅|
 |F-08|Funcional|GET  /api/produtos|200|✅|
-|F-10|Funcional|PUT  /api/produtos/{id}|200|✅|
-|F-14|Funcional|DELETE /api/produtos/{id}|204|✅|
-|S-01|Segurança|POST /api/usuarios (duplicado)|409|✅|
-|S-02|Segurança|POST /login (senha errada)|409|✅|
-|S-04|Segurança|POST produto preço negativo|400|✅|
-|S-06|Segurança|POST email inválido|400|✅|
-|D-01|Desempenho|GET /api/produtos|<500ms|✅|
-|D-05|Desempenho|Runner 50x|sem falha|✅|
+|F-10|Funcional|DELETE  /api/produtos/{id}|204|✅|
+|S-01|Segurança|POST /api/usuarios (duplicado)|409|❌|
+|S-02|Segurança|POST /login (senha errada)|409|❌|
+|S-03|Segurança|POST E-mail inexistente|404|❌|
+|S-06|Segurança|POST email inválido|400|❌|
+|D-01|Desempenho|GET /api/produtos|<100ms|✅|
+|D-04|Desempenho|Runner 50x|sem falha|✅|
 |U-01|Usabilidade|GET /api/produtos/{id}|JSON ok|✅|
 |U-04|Usabilidade|POST múltiplos erros de uma vez|todos|✅|
 
