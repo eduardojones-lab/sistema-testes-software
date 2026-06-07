@@ -68,7 +68,7 @@ src/main/resources/application.properties
 
 Verifique se as configurações batem com o que você instalou:
 properties
-spring.datasource.url=jdbc:postgresql://localhost:5432/sistema\_testes
+spring.datasource.url=jdbc:postgresql://localhost:5432/sistemaTestes
 spring.datasource.username=postgres
 spring.datasource.password=postgres!  ← altere se você usou outra senha
 ````
@@ -92,8 +92,6 @@ No console do IntelliJ, você verá:
     ==============================================
 Sistema de Testes - UDESC CEAVI
 Servidor rodando em: http://localhost:8080
-Produzido pelos alunos: Cauê, Eduardo, Henrique e Thiago.
-
     ==============================================
 ````
 
@@ -138,12 +136,12 @@ PROBLEMAS COMUNS E SOLUÇÕES ⚠️
 
 Verifique se o PostgreSQL está rodando
 Windows: Painel de Controle → Serviços → procure "postgresql" → Iniciar
-Verifique a senha em `application.properties` (Intelij)
+Verifique a senha em `application.properties` (Intellij)
 
  "Port 8080 already in use"
 
 Outra aplicação está usando a porta 8080
-Solução: mude para 8081 em `application.properties`(Intelij): server.port=8081
+Solução: mude para 8081 em `application.properties`(Intellij): server.port=8081
 
 
 "Cannot resolve symbol" no IntelliJ
